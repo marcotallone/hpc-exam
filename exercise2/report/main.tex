@@ -1,0 +1,82 @@
+\documentclass{article}
+
+% --------------------------------- PREAMBLE -----------------------------------
+
+% Importing preamble settings from settings/ folder
+\usepackage{import}
+\subimport{settings/}{general.tex}
+\subimport{settings/}{colors.tex}
+\subimport{settings/}{figures.tex}
+\subimport{settings/}{math.tex}
+\subimport{settings/}{toc.tex}
+\subimport{settings/}{code.tex}
+\subimport{settings/}{fonts.tex}
+% \subimport{settings/}{callouts.tex} emoji, requires lualatex
+
+% Additional preamble options
+\graphicspath{{images/}}
+
+% Additional preable commands
+
+% Subfiles package (best loaded last in the preamble)
+\usepackage{subfiles}
+
+% --------------------------------- SETTINGS -----------------------------------
+
+% Title, Author and Date
+\title{Parallel Quicksort Algorithms\\in MPI and OpenMP}
+\author{Marco Tallone}
+\date{March 2024}
+
+% --------------------------------- DOCUMENT -----------------------------------
+
+% Document
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\noindent
+Quicksort is a popular divide-and-conquer, recursive sorting algorithm.
+This report presents different ways to parallelize this algorithm
+using both the Message Passing Interface (MPI) library and OpenMP.\
+Multiple versions are implemented both in distributed and shared memory to study performance differences in terms of both strong and weak scalability.
+This study shows that a clear distinction between the different parallelization strategies can be made in terms of performance and scalability.
+\end{abstract}
+
+% \tableofcontents
+
+% \pagebreak
+
+\section{Introduction}
+\subfile{sections/introduction}
+
+\section{Serial Quicksort}
+\subfile{sections/serial}
+\vspace{-5mm}
+
+\section{Task Quicksort}
+\subfile{sections/task}
+
+\section{Simple Parallel Quicksort}
+\subfile{sections/simple}
+
+\section{Hyperquicksort}
+\subfile{sections/hyperquicksort}
+
+\section{Parallel Sort by Regular Sampling (PSRS)}
+\subfile{sections/psrs}
+
+\section{Results}
+\subfile{sections/results}
+
+\section{Conclusions}
+\subfile{sections/conclusions}
+
+
+% Bibliography
+\pagebreak
+\bibliographystyle{plainurl}
+\bibliography{bibliography}
+
+\end{document}

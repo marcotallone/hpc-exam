@@ -1,0 +1,30 @@
+#!/bin/bash
+
+#SBATCH --job-name=compile
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --time=0-00:10:00
+#SBATCH -A dssc
+#SBATCH -p EPYC
+#SBATCH --mem-per-cpu=1500MB
+#SBATCH --output=compilation.out 
+#SBATCH --error=error.err
+
+# Load the module for OpenMPI
+module load openMPI/4.1.5/gnu/12.2.1
+
+# Navigate to the OSU Micro-Benchmarks directory
+cd ./osu-micro-benchmarks-7.3
+make
+
+# Run the compilation commands
+./configure CC=$(which mpicc) CXX=$(which mpicxx)
+make
+
+# Write on the output file for which partition the job has been run last time
+echo "----------------------------------------------------------------------------"
+echo "🏁 | Compilation completed!"
+echo "Running on partition: $SLURM_JOB_PARTITION"
+echo "Host: $SLURM_JOB_NODELIST"
+

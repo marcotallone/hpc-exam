@@ -1,0 +1,138 @@
+% Emoji support for LaTeX
+\usepackage{emoji}
+\setemojifont{Noto Color Emoji}
+
+% Fontawesome5 package for icons
+\usepackage{fontawesome5}
+
+% tcolorbox for colored boxes
+\usepackage{tcolorbox}
+
+% Save the original \fboxsep
+\newlength{\originalfboxsep}
+
+% --------------------------------- CALLOUTS ----------------------------------
+
+% Warning block (and color variants) -------------------------------------------
+\newtcolorbox{warning}{
+    colback=gitgray,        % background color
+    colframe=gitgray,       % frame color
+    coltext=white,          % text color
+    boxrule=0mm,            % frame thickness
+    left=0mm,               % left margin
+    right=7mm,              % right margin
+    top=3mm,                % top margin
+    bottom=3mm,             % bottom margin
+    enhanced jigsaw,        % better frame drawing
+    overlay={               % overlay drawing
+        \node[anchor=north west, yshift=-2mm, xshift=1mm] at (frame.north west) {\emoji{warning}};
+    },
+    left=7mm                % indent
+}
+
+\newtcolorbox{redwarning}{
+    colback=darkred,        % background color
+    colframe=darkred,       % frame color
+    opacityback=0.5,        % background opacity
+    opacityframe=0.5,       % frame opacity
+    coltext=white,          % text color
+    boxrule=0mm,            % frame thickness
+    left=0mm,               % left margin
+    right=7mm,              % right margin
+    top=3mm,                % top margin
+    bottom=3mm,             % bottom margin
+    enhanced jigsaw,        % better frame drawing
+    overlay={               % overlay drawing
+        \node[anchor=north west, yshift=-2mm, xshift=1mm] at (frame.north west) {\emoji{warning}};
+    },
+    left=7mm                % indent
+}
+
+% Info block (and color variants) ----------------------------------------------
+\newtcolorbox{info}{
+    colback=gitgray,        % background color
+    colframe=gitgray,       % frame color
+    coltext=white,          % text color
+    boxrule=0mm,            % frame thickness
+    left=0mm,               % left margin
+    right=7mm,              % right margin
+    top=3mm,                % top margin
+    bottom=3mm,             % bottom margin
+    enhanced jigsaw,        % better frame drawing
+    overlay={               % overlay drawing
+        \node[anchor=north west, yshift=-2.5mm, xshift=1mm] at (frame.north west) {\faIcon{info-circle}};
+    },
+    left=7mm                % indent
+}
+
+\newtcolorbox{blueinfo}{
+    colback=darkblue,       % background color
+    colframe=darkblue,      % frame color
+    opacityback=0.3,        % background opacity
+    opacityframe=0.3,       % frame opacity
+    coltext=white,          % text color
+    boxrule=0mm,            % frame thickness
+    left=0mm,               % left margin
+    right=7mm,              % right margin
+    top=3mm,                % top margin
+    bottom=3mm,             % bottom margin
+    enhanced jigsaw,        % better frame drawing
+    overlay={               % overlay drawing
+        \node[anchor=north west, yshift=-2.5mm, xshift=1mm] at (frame.north west) {\faIcon{info-circle}};
+    },
+    left=7mm                % indent
+}
+
+% Definition block -------------------------------------------------------------
+% Command for the definition box
+\newcommand{\defSquare}{
+    \setlength{\originalfboxsep}{\fboxsep}                             % set it to zero
+    \setlength{\fboxsep}{2pt}                                          % add padding
+    \colorbox{white}{\textcolor{gitgray}{\small\textbf{\textit{def}}}} % print the box
+    \setlength{\fboxsep}{\originalfboxsep}                             % restore \fboxsep
+}
+
+% "def" block
+\newtcolorbox{definition}[1][]{
+    colback=gitgray,        % background color
+    colframe=gitgray,       % frame color
+    coltext=white,          % text color
+    boxrule=0mm,            % frame thickness
+    left=0mm,               % left margin
+    right=7mm,              % right margin
+    top=3mm,                % top margin
+    bottom=3mm,             % bottom margin
+    enhanced jigsaw,        % better frame drawing
+    overlay={               % overlay drawing
+        \node[anchor=north west, yshift=-2.9mm, xshift=1mm] at (frame.north west) {\faIcon{book-open}};
+    },
+    left=7mm,               % indent
+    before upper={\defSquare\ \textbf{#1} \par \vspace*{2mm}} % content before the main content
+}
+
+% Example block ---------------------------------------------------------------
+% Command for the example box
+\newcommand{\exampleSquare}{
+    \setlength{\originalfboxsep}{\fboxsep}                        % set it to zero
+    \setlength{\fboxsep}{2pt}                                     % add padding
+    \colorbox{white}{\textcolor{gitgray}{\small\textbf{EXAMPLE}}} % print the box
+    \setlength{\fboxsep}{\originalfboxsep}                        % restore \fboxsep
+}
+
+% Example block
+\newtcolorbox{example}[1][]{
+    colback=gitgray,        % background color
+    colframe=gitgray,       % frame color
+    coltext=white,          % text color
+    boxrule=0mm,            % frame thickness
+    left=0mm,               % left margin
+    right=7mm,              % right margin
+    top=3mm,                % top margin
+    bottom=3mm,             % bottom margin
+    enhanced jigsaw,        % better frame drawing
+    overlay={               % overlay drawing
+        \node[anchor=north west, yshift=-2.5mm, xshift=1mm] at (frame.north west) {\faIcon{edit}};
+    },
+    left=7mm,               % indent
+    before upper={\exampleSquare\ \textbf{#1} \par \vspace*{2mm} } % content before the main content
+}

@@ -1,0 +1,98 @@
+\documentclass[../main.tex]{subfiles}
+
+% Importing images from another path
+\graphicspath{{\subfix{../images/}}}
+
+\begin{document}
+
+\subsection{Broadcast $R^2$ values}
+
+\renewcommand{\arraystretch}{1.5}
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\rowcolor{gitgray}
+\textbf{Algorithm} & \cc{map-by core} & \cc{map-by socket} & \cc{map-by node} \\
+\hline
+\textbf{Default} & --- & --- & --- \\
+\hline
+\textbf{Linear} & 0.929 & 0.986 & 0.916 \\
+\hline
+\textbf{Chain} & 0.839 & 0.895 & 0.959 \\
+\hline
+\textbf{Binary} & 0.534 & 0.321 & 0.421 \\
+\hline
+\end{tabular}
+\caption{$R^2$ values for the \textbf{broadcast} predictions with the point-to-point model.}
+\label{tab:asymptotic-notation-summary}
+\end{table}
+
+% \vspace{-5mm}
+\renewcommand{\arraystretch}{1.5}
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\rowcolor{gitgray}
+\textbf{Algorithm} & \cc{map-by core} & \cc{map-by socket} & \cc{map-by node} \\
+\hline
+\textbf{Default} & 0.924 & 0.901 & 0.899 \\
+\hline
+\textbf{Linear} & 0.995 & 0.996 & 0.995 \\
+\hline
+\textbf{Chain} & 0.971 & 0.984 & 0.987 \\
+\hline
+\textbf{Binary} & 0.976 & 0.956 & 0.891 \\
+\hline
+\end{tabular}
+\caption{$R^2$ values for the \textbf{broadcast} predictions with the linear model.}
+\label{tab:asymptotic-notation-summary}
+\end{table}
+
+\subsection{Reduce $R^2$ values}
+
+% \vspace{-5mm}
+\renewcommand{\arraystretch}{1.5}
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\rowcolor{gitgray}
+\textbf{Algorithm} & \cc{map-by core} & \cc{map-by socket} & \cc{map-by node} \\
+\hline
+\textbf{Default} & --- & --- & --- \\
+\hline
+\textbf{Linear} & 0 & 0 & 0 \\
+\hline
+\textbf{Chain} & 0.734 & 0.882 & 0.809 \\
+\hline
+\textbf{Binary} & 0 & 0 & 0 \\ 
+\hline
+\end{tabular}
+\caption{$R^2$ values for the \textbf{reduce} predictions with the point-to-point model.}
+\label{tab:asymptotic-notation-summary}
+\end{table}
+
+% \vspace{-5mm}
+\renewcommand{\arraystretch}{1.5}
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\rowcolor{gitgray}
+\textbf{Algorithm} & \cc{map-by core} & \cc{map-by socket} & \cc{map-by node} \\
+\hline
+\textbf{Default} & 0.893 & 0.877 & 0.912 \\ 
+\hline
+\textbf{Linear} & 0.988 & 0.882 & 0.941 \\
+\hline
+\textbf{Chain} & 0.952 & 0.966 & 0.976 \\
+\hline
+\textbf{Binary} & 0.987 & 0.961 & 0.363 \\
+\hline
+\end{tabular}
+\caption{$R^2$ values for the \textbf{reduce} predictions with the linear model.}
+\label{tab:asymptotic-notation-summary}
+\end{table}
+\end{document}

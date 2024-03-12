@@ -1,0 +1,61 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyperFirstAtBeginDocument{\AtBeginDocument}
+\HyperFirstAtBeginDocument{\ifx\hyper@anchor\@undefined
+\global\let\oldcontentsline\contentsline
+\gdef\contentsline#1#2#3#4{\oldcontentsline{#1}{#2}{#3}}
+\global\let\oldnewlabel\newlabel
+\gdef\newlabel#1#2{\newlabelxx{#1}#2}
+\gdef\newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
+\AtEndDocument{\ifx\hyper@anchor\@undefined
+\let\contentsline\oldcontentsline
+\let\newlabel\oldnewlabel
+\fi}
+\fi}
+\global\let\hyper@last\relax 
+\gdef\HyperFirstAtBeginDocument#1{#1}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{orfeo}
+\citation{github}
+\providecommand \oddpage@label [2]{}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\citation{introhpc}
+\citation{mpi}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Serial Quicksort}{2}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Task Quicksort}{2}{section.3}\protected@file@percent }
+\@writefile{loc}{\contentsline {codeblock}{\numberline {1}{\ignorespaces Pseudocode for the OpenMP  \texttt  {omp\_task\_qsort}  function. Recursion ends when the array has length less then 2, where a simple swap is performed if needed.\relax }}{2}{codeblock.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{code:omp_task}{{1}{2}{Pseudocode for the OpenMP \cc {omp\_task\_qsort} function. Recursion ends when the array has length less then 2, where a simple swap is performed if needed.\relax }{codeblock.caption.1}{}}
+\citation{openmp}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Simple Parallel Quicksort}{3}{section.4}\protected@file@percent }
+\@writefile{loc}{\contentsline {codeblock}{\numberline {2}{\ignorespaces Pseudocode for the MPI implemetation of the Simple Parallel Quicksort algorithm.\relax }}{3}{codeblock.caption.2}\protected@file@percent }
+\newlabel{code:mpi_simple}{{2}{3}{Pseudocode for the MPI implemetation of the Simple Parallel Quicksort algorithm.\relax }{codeblock.caption.2}{}}
+\citation{intropar}
+\citation{intropar}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Rearrangement of partitions in shared memory using the prefix sum and $P=5$ threads\nobreakspace  {}\cite  {intropar}. The pivot value is highligted in yellow, low partitions $\mathbf  {X}^i_{<}$ are in blue and high partitions $\mathbf  {X}^i_{\geq }$ are in red. Note that thread numbering is zero-based so the first thread will be identified by $i=0$.\relax }}{4}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:prefix_sum}{{1}{4}{Rearrangement of partitions in shared memory using the prefix sum and $P=5$ threads~\cite {intropar}. The pivot value is highligted in yellow, low partitions $\mathbf {X}^i_{<}$ are in blue and high partitions $\mathbf {X}^i_{\geq }$ are in red. Note that thread numbering is zero-based so the first thread will be identified by $i=0$.\relax }{figure.caption.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Hyperquicksort}{5}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Parallel Sort by Regular Sampling (PSRS)}{5}{section.6}\protected@file@percent }
+\citation{epyc}
+\@writefile{loc}{\contentsline {codeblock}{\numberline {3}{\ignorespaces Pseudocode for the MPI implementation of the PSRS algorithm.\relax }}{6}{codeblock.caption.4}\protected@file@percent }
+\newlabel{code:mpi_psrs}{{3}{6}{Pseudocode for the MPI implementation of the PSRS algorithm.\relax }{codeblock.caption.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Results}{6}{section.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Strong scalability of the MPI implementations. On the left, the average sorting time against the number of processes for $100$ million elements. On the right, the speedup against the number of processes. All results have been obtained with $2$ threads per core.\relax }}{7}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:strong_mpi}{{2}{7}{Strong scalability of the MPI implementations. On the left, the average sorting time against the number of processes for $100$ million elements. On the right, the speedup against the number of processes. All results have been obtained with $2$ threads per core.\relax }{figure.caption.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Weak scalability of the MPI implementations. On the left, the average time against the number of processes for $1$ million elements per process. On the right, the efficiency vs.\ the number of processes. All results have been obtained with $2$ threads per core.\relax }}{8}{figure.caption.6}\protected@file@percent }
+\newlabel{fig:weak_mpi}{{3}{8}{Weak scalability of the MPI implementations. On the left, the average time against the number of processes for $1$ million elements per process. On the right, the efficiency vs.\ the number of processes. All results have been obtained with $2$ threads per core.\relax }{figure.caption.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Strong scalability of the OpenMP implementations. On the left, the average sorting time against the number of threads for $10$ million elements. On the right, the speedup vs.\ the number of threads.\relax }}{8}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:strong_omp}{{4}{8}{Strong scalability of the OpenMP implementations. On the left, the average sorting time against the number of threads for $10$ million elements. On the right, the speedup vs.\ the number of threads.\relax }{figure.caption.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Weak scalability of the OpenMP implementations. On the left, the average sorting time against the number of threads for $1$ million elements per thread. On the right, the efficiency vs.\ the number of threads.\relax }}{9}{figure.caption.8}\protected@file@percent }
+\newlabel{fig:weak_omp}{{5}{9}{Weak scalability of the OpenMP implementations. On the left, the average sorting time against the number of threads for $1$ million elements per thread. On the right, the efficiency vs.\ the number of threads.\relax }{figure.caption.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusions}{9}{section.8}\protected@file@percent }
+\bibstyle{plainurl}
+\bibdata{bibliography}
+\bibcite{epyc}{1}
+\bibcite{openmp}{2}
+\bibcite{mpi}{3}
+\bibcite{intropar}{4}
+\bibcite{introhpc}{5}
+\bibcite{orfeo}{6}
+\gdef \@abspage@last{10}

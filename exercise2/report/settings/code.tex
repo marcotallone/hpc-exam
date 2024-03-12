@@ -1,0 +1,172 @@
+% Listings package
+\usepackage{listings}
+
+% float package to enforce figure positioning
+\usepackage{float}
+
+% New colors for syntax highlighting
+\usepackage{newtxtt}
+
+% Custom highlighting for different languages
+% You can ADD A NEW LANGUAGE by copying the adding
+% a new \lstdefinestyle{<language>} block below
+
+\lstdefinestyle{Pseudocode}{
+    language=Python,
+    basicstyle=\color{black}\ttfamily\small,
+    numberstyle=\color{gray},
+    xleftmargin=5mm,
+    numbers=left,
+    numbersep=5mm,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    morekeywords={function, if, else, return},
+    mathescape=true
+    % escapeinside={(*}{*)} % everithung between (* and *) won't be considered as code
+}
+
+\lstdefinestyle{Python}{
+    language=Python,
+    basicstyle=\color{black}\ttfamily\small,
+    commentstyle=\color{gray},
+    keywordstyle=\color{gitred},
+    stringstyle=\color{gitlightblue},
+    numberstyle=\color{gray},
+    xleftmargin=10mm,
+    numbers=left,
+    numbersep=10mm,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstdefinestyle{Python}{
+    language=Python,
+    basicstyle=\color{black}\ttfamily\small,
+    commentstyle=\color{gray},
+    keywordstyle=\color{gitred},
+    stringstyle=\color{gitlightblue},
+    numberstyle=\color{gray},
+    xleftmargin=10mm,
+    numbers=left,
+    numbersep=10mm,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstdefinestyle{C++}{
+    language=C++,
+    basicstyle=\color{black}\ttfamily\small,
+    commentstyle=\color{gray},
+    keywordstyle=\color{gitred},
+    stringstyle=\color{gitlightblue},
+    numberstyle=\color{gray},
+    xleftmargin=10mm,
+    numbers=left,
+    numbersep=10mm,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstdefinestyle{C}{
+    language=C,
+    basicstyle=\color{black}\ttfamily\small,
+    commentstyle=\color{gray},
+    keywordstyle=\color{gitred},
+    stringstyle=\color{gitlightblue},
+    numberstyle=\color{gray},
+    xleftmargin=10mm,
+    numbers=left,
+    numbersep=10mm,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+
+% Code blocks
+\usepackage{newfloat}
+\DeclareFloatingEnvironment[
+    fileext=loc,
+    listname={List of Codes},
+    name=Code,   % The name that will appear in the caption
+    % placement=H, % H: here, t: top, b: bottom
+    placement=h,
+    within=none,
+]{codeblock}
+
+
+% Code boxes
+\usepackage{tcolorbox}
+\tcbuselibrary{listings, skins}
+\newtcblisting{code}[3][]{
+    enhanced,
+    listing only,
+    listing options={style=#2},
+    colback=gitgray,
+    colframe=gitgray, % frame color
+    boxrule=0pt,      % frame thickness
+    arc=0mm,          % corner radius,
+    #1
+    title=\small#3,         % title
+    coltitle=black,   % title color
+    fonttitle=\bfseries, % title font
+    attach boxed title to top left={yshift=-0.7mm,xshift=0mm},
+    boxed title style={colback=gitgray,boxrule=0pt,bottomrule=1pt},
+    underlay unbroken={\fill[gitgray] (title.north east) rectangle (frame.north east);},
+    underlay unbroken and first={\draw[black,line width=0.5pt] (title.north west)-- ($(title.north west-|frame.east)$);},
+    underlay unbroken and first={\draw[black,line width=0.5pt] (frame.north west)-- (frame.north east);},
+    underlay unbroken and last={\draw[black,line width=0.5pt] (frame.south west)-- (frame.south east);},
+}
+
+% Code-only
+% Command \begin{codeonly}{language}...\end{codeonly}
+% to display only the code without a box, 
+% just the listings code syntax highlighting
+% depending on the language in input
+\lstnewenvironment{codeonly}[1]{\lstset{style=#1}}{}
+
+% Inline code
+% Define a new command for inline code
+\newcommand{\cc}[1]{
+    \texttt{#1}
+    % \kern-0.7ex
+    % \tcbox[colback=gitgray,
+    %        coltext=black,
+    %        on line, 
+    %        boxrule=0pt, 
+    %        boxsep=0.5pt,
+    %        top=0.2mm, 
+    %        bottom=0.2mm, 
+    %        left=0.5mm, 
+    %        right=0.5mm]
+    % {\texttt{#1}}
+    % \kern-0.7ex
+}

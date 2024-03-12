@@ -1,0 +1,83 @@
+#!/bin/bash
+
+#SBATCH --job-name=p2p_latency
+
+#   Change this depending on the channel selected:
+#SBATCH --nodes=1
+
+#    #SBATCH --ntasks=1
+#    #SBATCH --ntasks-per-node=64
+#    #SBATCH --cpus-per-task=1
+#SBATCH --exclusive
+#SBATCH --time=0-00:30:00
+#SBATCH -A dssc
+#SBATCH -p EPYC
+
+#	Change depending on the channel selected:
+#SBATCH --nodelist=epyc[002]
+#   #SBATCH --nodelist=epyc[002,003]
+
+#SBATCH --error=error.err
+#SBATCH --output=latency.out
+
+# Load the module for OpenMPI
+module load openMPI/4.1.5/gnu/12.2.1
+
+# Navigate to the OSU Micro-Benchmarks directory
+cd ./osu-micro-benchmarks-7.3/c/mpi/pt2pt/standard/ 
+
+# Define costants
+test="osu_latency"
+map="cache"
+# map="core"
+# map="socket"
+# map="node"
+size=4096
+iter=10000
+
+# Write the constants in the error file
+echo "--- Constants ---" >> error.err
+echo "Test: $test" >> error.err
+echo "Channel: $map" >> error.err
+echo "Size: $size" >> error.err
+echo "Iterations: $iter" >> error.err
+echo "-----------------" >> error.err
+
+# Change the hostname/hostnames selected above depending on the channel
+hostname="epyc002"
+other_node_hostname="epyc003"
+
+# Run the benchmark test
+
+# Cache, core and socket cases (0-3, 4-63 and 64-127)
+if [ $map != "node" ]; then 
+    # Code to execute if $map is either "cache" or "core" or "socket"
+    for i in {1..127}
+    do
+        echo "----------------------------------------------------------------------------------"
+        if (( $i < 4 )); then
+            echo "T:$test|M:cache|C:0,$i|I:$iter" # if we are mapping the first 4 cores, we are using the cache channel
+        elif (( $i < 64 )); then
+            echo "T:$test|M:core|C:0,$i|I:$iter" # if we are mapping the cores from 4 to 63, we are using the core channel
+        else
+            echo "T:$test|M:socket|C:0,$i|I:$iter" # if we are mapping the cores from 64 to 127, we are using the socket channel
+        fi
+
+        mpirun -np 2 --cpu-list 0,$i $test -i $iter -m $size -z
+    done
+else
+    # Code to execute if $map is "node"
+    for i in {0..127}
+    do
+        # Create the rankfile before running the test
+        echo "rank 0=${hostname} slot=0" > rankfile
+        echo "rank 1=${other_node_hostname} slot=$i" >> rankfile
+
+        echo "----------------------------------------------------------------------------------"
+        echo "T:$test|M:node|C:0,$i|I:$iter"
+        mpirun -np 2 --rankfile rankfile $test -i $iter -m $size -z
+    done
+fi 
+
+echo "----------------------------------------------------------------------------------"
+echo "🏁 | Job completed!"

@@ -1,0 +1,54 @@
+#!/bin/bash
+
+#SBATCH --job-name=reduce
+#SBATCH --nodes=2
+#SBATCH --exclusive
+#SBATCH --time=0-02:00:00
+#SBATCH -A dssc
+#SBATCH -p EPYC
+#	#SBATCH --nodelist=epyc[007,008]
+#SBATCH --error=error.err
+
+#	Change depending on the algorithm and the mapping:
+#SBATCH --output=rc.out 
+
+# Load the module for OpenMPI
+module load openMPI/4.1.5/gnu/12.2.1
+
+# Navigate to the OSU Micro-Benchmarks directory
+cd ./osu-micro-benchmarks-7.3/c/mpi/collective/blocking/
+
+# Define costants
+algo=0 #1:linear; 2:chain; 4:binary tree
+map="core"
+size=4096
+iter=1000
+step=4
+mincores=2
+maxcores=256
+
+# Write the constants in the error file
+echo "--- Constants ---" >> error.err
+echo "Algorithm: $algo" >> error.err
+echo "Mapping: $map" >> error.err
+echo "Size: $size" >> error.err
+echo "Iterations: $iter" >> error.err
+echo "Step: $step" >> error.err
+echo "Min Cores: $mincores" >> error.err
+echo "Max Cores: $maxcores" >> error.err
+echo "-----------------" >> error.err
+
+# Run the benchmark test
+for cores in $(seq $mincores $step $maxcores)
+do
+	echo "----------------------------------------------------------------------------------------------------------------------------------"
+	echo "A:$algo|M:$map|C:$cores"
+	mpirun -np $cores --map-by $map \
+	--mca coll_tuned_use_dynamic_rules true \
+	--mca coll_tuned_reduce_algorithm $algo \
+	osu_reduce -i $iter -f -z
+done
+
+echo "----------------------------------------------------------------------------------------------------------------------------------"
+echo "🏁 | Job completed!"
+

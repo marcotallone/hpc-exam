@@ -1,0 +1,41 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+% Example of code block
+\begin{codeblock}
+\begin{code}{Python}{A simple Python function.}
+def hello_world():
+    """Simple hello world function"""
+    print("Hello, world!")
+\end{code}
+\caption{A simple Python function.}
+\end{codeblock}
+
+\begin{codeblock}
+\begin{code}{C++}{A simple C++ function.}
+void hello_world() {
+    // Simple hello world function
+    std::cout << "Hello, world!" << std::endl;
+}
+\end{code}
+\caption{A simple C++ function.}
+\end{codeblock}
+
+% You can also have a code block without caption:
+
+% \begin{code}{Python}
+%     def hello_world():
+%         """Simple hello world function"""
+%         print("Hello, world!")
+% \end{code}
+
+% Or write pure code outside a box:
+
+% \begin{codeonly}{Python}
+%     def hello_world():
+%         """Simple hello world function"""
+%         print("Hello, world!")
+% \end{codeonly}
+
+\end{document}

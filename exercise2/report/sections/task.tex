@@ -1,0 +1,43 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+OpenMP's \cc{\#pragma omp task} directive allows for the creation of unitary
+independent tasks that can be executed by any available thread inside a
+parallel region.\\
+Due to the divide-and-conquer approach of the quicksort algorithm, this
+directive can be directly exploited to obtain a fairly simple parallelization
+of this algorithm. The main idea is to have, at each recursive call, one thread
+that, after having partitioned the array, creates two tasks: one for the
+$\mathbf{X}_{< \tau}$ sub-array and one for the $\mathbf{X}_{\geq \tau}$ sub-array. Since the two sub-array formed at each step do not have any
+intersection, any thread that enters a task can work independently on
+its sub-array without the risk of contention with other threads.\\
+This simple implementation can be schematized by the following OpenMP
+pseudocode\footnote{
+% This pseudocode is just a simplified version of the actual OpenMP implementation and omits some of the actual code details.
+Pseudocodes here presented don't constitute implementation examples, but only aim to give a minimal and concise idea of the main steps performed in each function by omitting some of the actual code details.
+}.
+
+\begin{codeblock}
+\begin{code}{Pseudocode}{OpenMP Task Quicksort}
+function omp_task_qsort($\mathbf{X}$):
+    if len($\mathbf{X}$) > 2:
+        $\tau \leftarrow$ choose_pivot($\mathbf{X}$)
+        $\mathbf{X}_{< \tau}, \mathbf{X}_{\geq \tau} \leftarrow$ partition($\mathbf{X}, \tau$)
+
+        #pragma omp task
+        omp_task_qsort($\mathbf{X}_{< \tau}$)
+
+        #pragma omp task
+        omp_task_qsort($\mathbf{X}_{\geq \tau}$)
+    else:
+        if len($\mathbf{X}$) == 2 and $\mathbf{X}[0] > \mathbf{X}[1]$:
+            swap($\mathbf{X}[0], \mathbf{X}[1]$)
+\end{code}
+\caption{Pseudocode for the OpenMP \cc{omp\_task\_qsort} function. Recursion ends when the array has length less then 2, where a simple swap is performed if needed.}
+\label{code:omp_task}
+\end{codeblock}
+
+The time complexity of this algorithm is the same as the serial quicksort, i.e.\ $\mathcal{O}(n \log n)$, but the parallelization allows the program to execute faster at a large scale. The main advantages of this approach are the simplicity of its implementation and the fact that it does not require any explicit synchronization between threads. However, we might take into account that the number of tasks created at each step can be very large, especially for large arrays, and this can lead to a significant overhead in terms of memory and time.\\
+
+\end{document}

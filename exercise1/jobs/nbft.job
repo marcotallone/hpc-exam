@@ -1,0 +1,111 @@
+#!/bin/bash
+
+#SBATCH --job-name=nbft
+
+#   Change this depending on the channel selected:
+#SBATCH --nodes=3
+
+#SBATCH --exclusive
+#SBATCH --time=0-02:00:00
+#SBATCH -A dssc
+#SBATCH -p EPYC
+
+#	Change depending on the channel selected:
+#   #SBATCH --nodelist=epyc[002]
+#SBATCH --nodelist=epyc[002,003,004]
+
+#SBATCH --error=error.err
+
+#	Change depending on the channel selected:
+#SBATCH --output=nbft_node.out 
+
+# Load the module for OpenMPI
+module load openMPI/4.1.5/gnu/12.2.1
+
+# Navigate to the OSU Micro-Benchmarks directory
+cd ./osu-micro-benchmarks-7.3/c/mpi/collective/blocking/
+
+# Define costants
+# Here we're testing the NBFT broadcast time so we need linear algorithm
+algo=1
+# map="cache"
+# map="core"
+# map="socket"
+map="node"
+size=4096
+iter=1000
+step=1
+mincores=2
+
+# Maxcores must be changed depending on the channel:
+# - cache: 4 (root + 3 receiving processes)
+# - core: 61 (root + 60 receiving processes)
+# - socket: 65 (root + 64 receiving processes)
+# - node: 257 (root + 256 receiving processes on other 2 nodes)
+maxcores=257
+
+# Write the constants in the error file
+echo "--- Constants ---" >> error.err
+echo "Algorithm: $algo" >> error.err
+echo "Channel: $map" >> error.err
+echo "Size: $size" >> error.err
+echo "Iterations: $iter" >> error.err
+echo "Step: $step" >> error.err
+echo "Min Cores: $mincores" >> error.err
+echo "Max Cores: $maxcores" >> error.err
+echo "-----------------" >> error.err
+
+# Chenge the hostname/hostnames selected above depending on the channel
+# hostname="epyc002"
+root_hostname="epyc002"
+others_hostname="epyc003"
+others_hostname2="epyc004"
+
+# Create the rankfile
+
+# Cache channel: receiving processes are on cores from 0 to 3 (basically --map-by core)
+# echo "rank 0=${hostname} slot=0" > rankfile
+# for i in $(seq 1 $maxcores)
+# do
+#     echo "rank $i=${hostname} slot=$i" >> rankfile
+# done
+
+# Core channel: receiving processes are on cores from 4 to 63
+# echo "rank 0=${hostname} slot=0" > rankfile
+# for i in $(seq 1 $maxcores)
+# do
+#     echo "rank $i=${hostname} slot=$(($i+3))" >> rankfile
+# done
+
+# Socket channel: receiving processes are on cores from 64 to 127
+# echo "rank 0=${hostname} slot=0" > rankfile
+# for i in $(seq 1 $maxcores)
+# do
+#     echo "rank $i=${hostname} slot=$(($i+63))" >> rankfile
+# done
+
+# Node channel: receiving processes are on the other nodes
+echo "rank 0=${root_hostname} slot=0" > rankfile
+for i in $(seq 1 128)
+do
+    echo "rank $i=${others_hostname} slot=$(($i-1))" >> rankfile
+done
+for i in $(seq 129 256)
+do
+    echo "rank $i=${others_hostname2} slot=$(($i-129))" >> rankfile
+done
+
+# Run the benchmark test
+for cores in $(seq $mincores $step $maxcores)
+do
+    echo "----------------------------------------------------------------------------------------------------------------------------------"
+    echo "A:$algo|M:$map|C:$cores"
+    mpirun -np $cores --rankfile rankfile \
+    --mca coll_tuned_use_dynamic_rules true \
+    --mca coll_tuned_bcast_algorithm $algo \
+    osu_bcast -i $iter -m $size -f -z
+done
+
+echo "----------------------------------------------------------------------------------------------------------------------------------"
+echo "🏁 | Job completed!"
+

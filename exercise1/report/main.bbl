@@ -1,0 +1,52 @@
+\begin{thebibliography}{1}
+
+\bibitem{epyc}
+AMD.
+\newblock Epyc 7h12 specifications, 2023.
+\newblock URL: \url{https://www.amd.com/en/processors/epyc}.
+
+\bibitem{mpi}
+MPI Forum.
+\newblock Mpi: A message-passing interface standard, 2023.
+\newblock URL: \url{https://www.mpi-forum.org/docs/}.
+
+\bibitem{Hockney}
+Roger~W. Hockney.
+\newblock The communication challenge for mpp: Intel paragon and meiko cs-2.
+\newblock {\em Parallel Computing}, 20(3):389--398, 1994.
+\newblock URL:
+  \url{https://www.sciencedirect.com/science/article/pii/S0167819106800219},
+  \href {https://doi.org/https://doi.org/10.1016/S0167-8191(06)80021-9}
+  {\path{doi:https://doi.org/10.1016/S0167-8191(06)80021-9}}.
+
+\bibitem{Nuriyev2022}
+Emin Nuriyev, Juan-Antonio Rico-Gallego, and Alexey Lastovetsky.
+\newblock Model-based selection of optimal mpi broadcast algorithms for
+  multi-core clusters.
+\newblock {\em Journal of Parallel and Distributed Computing}, 165:1--16, 2022.
+\newblock URL:
+  \url{https://www.sciencedirect.com/science/article/pii/S0743731522000697},
+  \href {https://doi.org/https://doi.org/10.1016/j.jpdc.2022.03.012}
+  {\path{doi:https://doi.org/10.1016/j.jpdc.2022.03.012}}.
+
+\bibitem{orfeo}
+AREA~Science Park.
+\newblock Orfeo documentation, 2023.
+\newblock URL: \url{https://orfeo-doc.areasciencepark.it/}.
+
+\bibitem{osu}
+Ohio~State University.
+\newblock Osu micro-benchmarks, 2023.
+\newblock URL: \url{http://mvapich.cse.ohio-state.edu/benchmarks/}.
+
+\bibitem{Velten2022}
+Markus Velten, Robert Sch\"{o}ne, Thomas Ilsche, and Daniel Hackenberg.
+\newblock Memory performance of amd epyc rome and intel cascade lake sp server
+  processors.
+\newblock In {\em Proceedings of the 2022 ACM/SPEC on International Conference
+  on Performance Engineering}, ICPE '22, page 165–175, New York, NY, USA,
+  2022. Association for Computing Machinery.
+\newblock \href {https://doi.org/10.1145/3489525.3511689}
+  {\path{doi:10.1145/3489525.3511689}}.
+
+\end{thebibliography}

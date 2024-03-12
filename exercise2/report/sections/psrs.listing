@@ -1,0 +1,16 @@
+function MPI_PSRS($\mathbf{X}^i$):
+    $\mathbf{X}^i$ $\leftarrow$ sort($\mathbf{X}^i$)
+    local_samples $\leftarrow$ sample($\mathbf{X}^i$, $P$)
+
+    MPI_Gather(local_samples, samples, $P \hspace{-1mm}\times \hspace{-1mm} P$, 0, MPI_COMM_WORLD)
+
+    if rank == 0:
+        samples $\leftarrow$ sort(samples)
+        pivots $\leftarrow$ pick_pivots(samples, $P$)
+        MPI_Bcast(pivots, MPI_COMM_WORLD)
+
+    $ (\mathbf{X}^{i}_{0},\dots \mathbf{X}^{i}_{P}) \leftarrow$ partition($\mathbf{X}^i$, pivots)
+
+    MPI_Alltoall($\mathbf{X}^i$, $P$, $\mathbf{X}^i$, $P$, MPI_COMM_WORLD)
+
+    $\mathbf{X}^i \leftarrow$ sort($\mathbf{X}^i$)
