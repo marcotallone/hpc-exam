@@ -48,3 +48,16 @@ foreach(main_file ${MAIN_FILES})
         endif()
     endif()
 endforeach(main_file)
+
+# Madelbrot executable (added) -------------------------------------------------
+# The mandelbrot executable just needs to be linked to the mandel.h header file
+# sice it's a small implementation in OpenMP and doesn't need any other library
+# with the exeption of OpenMP and math.h
+if (OMP)
+  # Add executable
+  message(STATUS "🛠 Compiling executable:  mandelbrot.c")
+  add_executable(mandelbrot mandelbrot.c)
+
+  # Linking to math.h
+  target_link_libraries(mandelbrot m)
+endif()
